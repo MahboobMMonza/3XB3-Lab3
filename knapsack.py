@@ -21,3 +21,24 @@ def ks_bottom_up(items: list[tuple[int, int]], capacity: int) -> int:
                 break
 
     return table[capacity]
+
+
+def ks_brute_force(items: list[tuple[int, int]], capacity: int) -> int:
+    max_val: int = 0
+
+    # Try every combination. There are 2^n combinations possible, and these can be represented in an
+    # integer with n bits. If the ith bit is 1, we take the ith item in the current combination, and
+    # leave it if the bit is 0. We need to check that the weight doesn't exceed the capacity as well.
+
+    for combination in range(1 << len(items)):
+        value, weight = 0, 0
+        for item_idx in range(len(items)):
+            # Take the current item if its bit is a 1
+            if combination & (1 << item_idx):
+                value, weight = value + items[item_idx][0], weight + items[item_idx][1]
+
+        # Update max cap
+        if weight <= capacity:
+            max_val = max(max_val, value)
+
+    return max_val
