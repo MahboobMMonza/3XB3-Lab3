@@ -16,6 +16,8 @@ def ks_bottom_up(items: list[tuple[int, int]], capacity: int) -> int:
             # Index is offset by 1
             # Optimal choice is not taking the item, or taking the item + best prev choice
             table[j] = max(table[j], table[j - items[i][1]] + items[i][0])
+            # If this is the last item, since the highest weight is filled first, we can return answer
+            if i + 1 == len(items):
+                break
 
     return table[capacity]
-
