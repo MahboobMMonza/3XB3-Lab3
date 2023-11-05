@@ -45,34 +45,34 @@ def ks_brute_force(items: list[tuple[int, int]], capacity: int) -> int:
 
 
 def ks_top_down(items: list[tuple[int, int]], capacity: int) -> int:
-    n = len(items)
+    num_items = len(items)
 
     # Initialize a memorization table
-    m = [[-1] * (capacity + 1) for _ in range(n + 1)]
+    memorization_table = [[-1] * (capacity + 1) for _ in range(num_items + 1)]
 
     # Define a recursive function to calculate the optimal value
-    def recursive_knapsack(i, w):
+    def recursive_knapsack(index, weight):
 
         # If the value for this combination has already been computed, then return the combination
-        if m[i][w] >= 0:
-            return m[i][w]
+        if memorization_table[index][weight] >= 0:
+            return memorization_table[index][weight]
 
         # Base case: If there are no items or capacity left, then return 0
-        if i == 0 or w == 0:
-            q = 0
+        if index == 0 or weight == 0:
+            optimal_value = 0
 
         # If the weight of the current item is less than or equal to the remaining capacity
         # Choose the max between taking the current item or not taking it
-        elif items[i - 1][1] <= w:
-            q = max(recursive_knapsack(i - 1, w - items[i - 1][1]) + items[i - 1][0], recursive_knapsack(i - 1, w))
+        elif items[index - 1][1] <= weight:
+            optimal_value = max(recursive_knapsack(index - 1, weight - items[index - 1][1]) + items[index - 1][0], recursive_knapsack(index - 1, weight))
         else:
             # If the weight of the current item exceeds the remaining capacity, move on to the next item
-            q = recursive_knapsack(i - 1, w)
+            optimal_value = recursive_knapsack(index - 1, weight)
 
         # Cache the computed value for the next reference
-        m[i][w] = q
-        return q
+        memorization_table[index][weight] = optimal_value
+        return optimal_value
 
     # Call the recursive function with the total number of items and the total capacity
-    result = recursive_knapsack(n, capacity)
+    result = recursive_knapsack(num_items, capacity)
     return result
