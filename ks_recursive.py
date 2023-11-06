@@ -3,7 +3,7 @@ def ks_recursive(items: list[tuple[int, int]], capacity: int) -> int:
     if not items or capacity == 0:
         return 0
 
-    # Start with the last item in the list index i
+    # Start with the last item in the list, index i
     i = len(items)
 
     # If the weight of the last item exceeds the current capacity don't include it
