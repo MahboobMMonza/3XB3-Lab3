@@ -2,21 +2,21 @@ from knapsack import *
 
 
 def test1(solver: callable):
-    choices: list[tuple[int, int]] = [(5, 6), (6, 5), (4, 6), (6, 6), (5, 3), (2, 7)]
+    choices: list[tuple[int, int]] = [(6, 5), (5, 6), (6, 4), (6, 6), (3, 5), (7, 2)]
     cap: int = 15
     assert solver(choices, cap) == 17
     print('PASS 1')
 
 
 def test2(solver: callable):
-    choices: list[tuple[int, int]] = [(10 ** 9, 1) for _ in range(5)]
+    choices: list[tuple[int, int]] = [(1, 10 ** 9) for _ in range(5)]
     cap: int = 5
     assert solver(choices, cap) == (5 * 10 ** 9)
     print('PASS 2')
 
 
 def test3(solver: callable):
-    choices: list[tuple[int, int]] = [(30, 3), (50, 4), (60, 5)]
+    choices: list[tuple[int, int]] = [(3, 30), (4, 50), (5, 60)]
     cap: int = 8
     assert solver(choices, cap) == 90
     print('PASS 3')
