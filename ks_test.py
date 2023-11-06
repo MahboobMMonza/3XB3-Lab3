@@ -23,7 +23,7 @@ def test3(solver: callable):
 
 
 def main():
-    solvers = [ks_bottom_up, ks_brute_force, ks_top_down]
+    solvers = [ks_bottom_up, ks_top_down, ks_brute_force, ks_recursive]
     for solver in solvers:
         print('*********', solver.__name__, '*********')
         test1(solver)
