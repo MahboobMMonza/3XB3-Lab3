@@ -50,34 +50,32 @@ def ks_top_down(items: list[tuple[int, int]], capacity: int) -> int:
     # Initialize a memoization table (same as using a dict but more general to other languages)
     # Initialize to -1 to indicate that it has not been computed
     memoization_table = [[-1] * (capacity + 1) for _ in range(num_items + 1)]
-
-    # Define a recursive function to calculate the optimal value
-    def ks_top_down_helper(index, weight):
-
-        # If the value for this combination has already been computed, then return the combination
-        if memoization_table[index][weight] >= 0:
-            return memoization_table[index][weight]
-
-        # Base case: If there are no items or capacity left, then return 0
-        if index == 0 or weight == 0:
-            optimal_value = 0
-
-        # If the weight of the current item is less than or equal to the remaining capacity
-        # Choose the max between taking the current item or not taking it
-        elif items[index - 1][0] <= weight:
-            optimal_value = max(ks_top_down_helper(index - 1, weight - items[index - 1][0]) + items[index - 1][1],
-                                ks_top_down_helper(index - 1, weight))
-        else:
-            # If the weight of the current item exceeds the remaining capacity, move on to the next item
-            optimal_value = ks_top_down_helper(index - 1, weight)
-
-        # Cache the computed value for the next reference
-        memoization_table[index][weight] = optimal_value
-        return optimal_value
-
-    # Call the recursive function with the total number of items and the total capacity
-    result = ks_top_down_helper(num_items, capacity)
+    # Call the recursive function with the total number of items and the total capacity, sharing the memoization_table
+    result = ks_top_down_helper(items, num_items, capacity, memoization_table)
     return result
+
+
+def ks_top_down_helper(items: list[tuple[int, int]], index: int, weight: int, memoization_table: list[list[int]]):
+    # If the value for this combination has already been computed, then return the combination
+    if memoization_table[index][weight] >= 0:
+        return memoization_table[index][weight]
+
+    # Base case: If there are no items or capacity left, then return 0
+    if index == 0 or weight == 0:
+        optimal_value = 0
+
+    # If the weight of the current item is less than or equal to the remaining capacity
+    # Choose the max between taking the current item or not taking it
+    elif items[index - 1][0] <= weight:
+        optimal_value = max(ks_top_down_helper(items, index - 1, weight - items[index - 1][0], memoization_table) +
+                            items[index - 1][1], ks_top_down_helper(items, index - 1, weight, memoization_table))
+    else:
+        # If the weight of the current item exceeds the remaining capacity, move on to the next item
+        optimal_value = ks_top_down_helper(items, index - 1, weight, memoization_table)
+
+    # Cache the computed value for the next reference
+    memoization_table[index][weight] = optimal_value
+    return optimal_value
 
 
 def ks_recursive(items: list[tuple[int, int]], capacity: int) -> int:
