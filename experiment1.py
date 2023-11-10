@@ -6,7 +6,7 @@ from utilities import *
 def experiment1():
     capacity = 915
     total_items = 20
-    num_experiments = 10
+    num_experiments = 1000
     weight_range = (50, 75)
     value_range = (1000, 2000)
     items = generate_random_items(total_items, weight_range, value_range)
@@ -44,7 +44,7 @@ def experiment1():
 
     create_plot(num_items, [runtimes_rec, runtimes_brute_force],
                 legend_labels=["ks_rec", "ks_brute_force"],
-                title="Knapsack Problem Runtimes (Recursion vs Brute Force)",
+                title="Runtime Comparisons of Recursive & Brute-Force Implementations of the Knapsack Problem ",
                 description="10 reps for lists of size 20,where values range randomly from 1000-2000 and weights range randomly from 50-75",
                 x_label="Number of Items",
                 y_label="Runtime(s)",
