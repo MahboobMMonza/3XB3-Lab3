@@ -49,10 +49,10 @@ def experiment1():
                 title="Runtime Comparisons of Recursive & Brute-Force Implementations of the Knapsack Problem ",
                 description=f"{(max_value + 1 - min_value) // step} increments up to {max_value} from {min_value} with {reps}"
                             f" repetitions per increment. Values range from {value_range[0]} to {value_range[1]}"
-                            f"; Weights range from {weight_range[0]} to {weight_range[1]} and capacity set to {capacity}",
+                            f";\n Weights range from {weight_range[0]} to {weight_range[1]} and capacity set to {capacity}",
                 x_label="Number of Items",
                 y_label="Runtime(s)",
-                scale=1.75)
+                scale=1.5)
 
 
 def main():
